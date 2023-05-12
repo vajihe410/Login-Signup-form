@@ -1,4 +1,4 @@
-import { Route , Switch , Redirect } from 'react-router-dom';
+import { Route , Routes , Navigate } from 'react-router-dom';
 //components
 import Signup from './components/Signup';
 import Login from './components/Login';
@@ -6,11 +6,11 @@ import Login from './components/Login';
 function App() {
   return (
     <div>
-      <Switch>
-          <Route path="/signup" component={Signup}/>
-          <Route path="/login" component={Login}/>
-          <Redirect from="/" to="/signup" />
-      </Switch>
+      <Routes>
+          <Route path="/signup" element={<Signup />}/>
+          <Route path="/login" element={<Login />}/>
+          <Route path='/' element={<Navigate to="/signup" />}/>
+      </Routes>
     </div>
   );
 }
