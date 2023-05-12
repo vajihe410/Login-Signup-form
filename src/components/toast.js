@@ -1,8 +1,7 @@
-
-import {  toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 export const notify=(text,type)=>{
     if(type==="success"){
-        toast .success(text)
+        toast.success(text)
     }
     else{
         toast.error(text)
