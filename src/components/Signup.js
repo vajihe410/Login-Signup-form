@@ -1,6 +1,9 @@
 import React,{useState , useEffect} from 'react';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 //function
 import { validate } from './validate';
+import {notify} from './toast'
 
 const Signup = () => {
     const [data,setData]=useState({
@@ -32,11 +35,27 @@ const Signup = () => {
         setTouched({...touched,[event.target.name]:true})
     }
 
-    const submitHandler=()=>{
+    const submitHandler=(event)=>{
+        event.preventDefault();
+        if(!Object.keys(errors).length){
+            notify("you signed successful","success")
+        }
+        else{
+            notify("invalid error","error")
+            setTouched({
+                name:true,
+                email:true,
+                password:true,
+                confirmPassword:true,
+                isAccepted:true,
+            })
+            
+        }
         
     }
     return (
-        <form onSubmit={submitHandler}>
+       <div>
+             <form onSubmit={submitHandler}>
             <h1>Signup</h1>
             <div>
                 <label>Name</label>
@@ -44,7 +63,7 @@ const Signup = () => {
                 {errors.name && touched.name && <span>{errors.name}</span>}
             </div>
             <div>
-                <label>email</label>
+                <label>Email</label>
                 <input type="text" name="email" value={data.email}  onChange={changeHandler} onFocus={focusHandler}/>
                 {errors.email && touched.email && <span>{errors.email}</span>}
             </div>
@@ -68,6 +87,8 @@ const Signup = () => {
                 <button type='submit'>Sign up</button>
             </div>
         </form>
+        <ToastContainer />
+       </div>
     );
 };
 
